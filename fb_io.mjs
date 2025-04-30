@@ -8,11 +8,25 @@
 /**************************************************************/
 const COL_C = 'white';	    // These two const are part of the coloured 	
 const COL_B = '#CD7F32';	//  console.log for functions scheme
+const firebaseConfig = {
+    apiKey: "AIzaSyBNDhyKyF4h86o_xE3AY_e51-vB6gAUX1g",
+    authDomain: "comp-2025-joshua-k-h.firebaseapp.com",
+    databaseURL: "https://comp-2025-joshua-k-h-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "comp-2025-joshua-k-h",
+    storageBucket: "comp-2025-joshua-k-h.firebasestorage.app",
+    messagingSenderId: "695585659485",
+    appId: "1:695585659485:web:a965ad296454cd022f0bb4",
+    measurementId: "G-BZX0JJYC05"
+  };
+
 console.log('%c fb_io.mjs',
             'color: blue; background-color: white;');
 
 /**************************************************************/
 // Import all external constants & functions required
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
+import { getDatabase } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
 /**************************************************************/
 // Import all the methods you want to call from the firebase modules
 
@@ -21,13 +35,18 @@ console.log('%c fb_io.mjs',
 // EXPORT FUNCTIONS
 // List all the functions called by code or html outside of this module
 /**************************************************************/
-export { 
-    fb_initialise };
+export { fb_initialise};
 
 function fb_initialise() {
     console.log('%c fb_initialise(): ', 
                 'color: ' + COL_C + '; background-color: ' + COL_B + ';');
-}
+    // Initialize Firebase
+    const FB_GAMEAPP = initializeApp(firebaseConfig);
+    //const FB_ANALYTICS = getAnalytics(FB_GAMEAPP);
+    const FB_DATABASE = getDatabase(FB_GAMEAPP);
+    console.log(FB_GAMEAPP) //DIAG
+    console.log(FB_DATABASE) //DIAG
+};
 
 /**************************************************************/
 // END OF CODE

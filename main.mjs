@@ -10,11 +10,16 @@ console.log('%c main.mjs',
 
 /**************************************************************/
 // Import all external constants & functions required
+
 /**************************************************************/
 // Import all the constants & functions required from fb_io module
 import { fb_initialise }
     from './fb_io.mjs';
     window.fb_initialise   = fb_initialise;
+import { fb_read, fb_write}
+    from './fb_readwrite.mjs';
+    window.fb_read   = fb_read;
+    window.fb_write   = fb_write;
  
 /**************************************************************/
 // index.html main code
