@@ -35,7 +35,7 @@ import { getDatabase } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-
 // EXPORT FUNCTIONS
 // List all the functions called by code or html outside of this module
 /**************************************************************/
-export { fb_initialise};
+export {fb_initialise};
 
 function fb_initialise() {
     console.log('%c fb_initialise(): ', 
@@ -46,6 +46,9 @@ function fb_initialise() {
     const FB_DATABASE = getDatabase(FB_GAMEAPP);
     console.log(FB_GAMEAPP) //DIAG
     console.log(FB_DATABASE) //DIAG
+    window.FB_GAMEAPP = FB_GAMEAPP;
+    window.FB_DATABASE = FB_DATABASE;
+    document.getElementById("p_fbInitialise").innerHTML= "Initialised";
 };
 
 /**************************************************************/

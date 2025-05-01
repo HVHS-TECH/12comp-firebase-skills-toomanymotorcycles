@@ -1,6 +1,6 @@
 //**************************************************************/
-// fb_readwrite.mjs
-// Read/Write firebase routines
+// fb_io.mjs
+// Generalised firebase routines
 // Written by <Your Name Here>, Term 2 202?
 //
 // All variables & function begin with fb_  all const with FB_
@@ -8,13 +8,12 @@
 /**************************************************************/
 const COL_C = 'white';	    // These two const are part of the coloured 	
 const COL_B = '#CD7F32';	//  console.log for functions scheme
-
-console.log('%c fb_readwrite.mjs',
-    'color: blue; background-color: white;');
+console.log('%c fb_authhandler.mjs',
+            'color: blue; background-color: white;');
 
 /**************************************************************/
 // Import all external constants & functions required
-import { ref, get, set } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 /**************************************************************/
 // Import all the methods you want to call from the firebase modules
 
@@ -23,30 +22,22 @@ import { ref, get, set } from "https://www.gstatic.com/firebasejs/11.6.1/firebas
 // EXPORT FUNCTIONS
 // List all the functions called by code or html outside of this module
 /**************************************************************/
-export { fb_read, fb_write };
+export {fb_login};
 
-function fb_read() {
-    console.log('%c fb_read(): ',
-        'color: ' + COL_C + '; background-color: ' + COL_B + ';'
-    );
-    const reference = ref(FB_DATABASE, "pOoae48Ua6M9TFOybmZAHx4Zydl1");
-    get(reference).then((snapshot) => {
-        var fb_data = snapshot.val();
-        if (fb_data != null) {
-            console.log(fb_data);
-        } else {
-            console.warn("The data at \'" + ref + "\' was not found.");
-        }
+function fb_login() {
+  const AUTH = getAuth();
+  const PROVIDER = new GoogleAuthProvider();
+  // The following makes Google ask the user to select the account
+PROVIDER.setCustomParameters({
+      prompt: 'select_account'
+  });
 
-    }).catch((error) => {
-        console.warn(error.code + " - " + error.message);
-    });
-};
-
-function fb_write() {
-    console.log('%c fb_write(): ',
-        'color: ' + COL_C + '; background-color: ' + COL_B + ';');
-
+  signInWithPopup(AUTH, PROVIDER).then((result) => {
+      return result.user;
+  })
+  .catch((error) => {
+      console.warn("AUTHENTICATION ERROR " + error.code + " - " + error.message)
+  });
 };
 
 /**************************************************************/
