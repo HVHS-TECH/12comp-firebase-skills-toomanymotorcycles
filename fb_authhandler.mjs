@@ -13,7 +13,7 @@ console.log('%c fb_authhandler.mjs',
 
 /**************************************************************/
 // Import all external constants & functions required
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 /**************************************************************/
 // Import all the methods you want to call from the firebase modules
 
@@ -22,7 +22,28 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstati
 // EXPORT FUNCTIONS
 // List all the functions called by code or html outside of this module
 /**************************************************************/
-export {fb_login};
+export {fb_login,fb_logout,fb_authCheck};
+
+function fb_authCheck(manualCall) {
+  const AUTH = getAuth();
+    onAuthStateChanged(AUTH, (user) => {
+        if (user) {
+          if (manualCall) {
+            console.log ("Current logged-in user: " + user.displayName)
+          }
+          window.user = user
+          document.getElementById("p_fbLogin").innerHTML= user.displayName;
+        } else {
+          if (manualCall) {
+            console.log ("No current logged-in user.")
+          }
+          window.user = undefined
+          document.getElementById("p_fbLogin").innerHTML = "None";
+        }
+    }, (error) => {
+      console.warn("AUTHENTICATION CHECK ERROR: " + error.code + " - " + error.message)
+    });
+}
 
 function fb_login() {
   const AUTH = getAuth();
@@ -33,12 +54,28 @@ PROVIDER.setCustomParameters({
   });
 
   signInWithPopup(AUTH, PROVIDER).then((result) => {
-      return result.user;
+    console.log("AUTHENTICATION SUCCESS - Logged in as user \"" + result.user.displayName + "\"")
+    window.user = result.user;
+    fb_authCheck(false);
   })
   .catch((error) => {
-      console.warn("AUTHENTICATION ERROR " + error.code + " - " + error.message)
+      console.warn("AUTHENTICATION ERROR: " + error.code + " - " + error.message)
+      fb_authCheck(true);
   });
 };
+
+function fb_logout() {
+  const AUTH = getAuth();
+    signOut(AUTH).then(() => {
+      window.user = undefined;
+      console.log("Logout successful.");
+      fb_authCheck(false);
+    })
+    .catch((error) => {
+      console.warn("LOGOUT ERROR: " + error.message);
+      fb_authCheck(true);
+    });
+}
 
 /**************************************************************/
 // END OF CODE

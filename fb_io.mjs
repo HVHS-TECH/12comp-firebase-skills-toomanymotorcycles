@@ -48,7 +48,8 @@ function fb_initialise() {
     console.log(FB_DATABASE) //DIAG
     window.FB_GAMEAPP = FB_GAMEAPP;
     window.FB_DATABASE = FB_DATABASE;
-    document.getElementById("p_fbInitialise").innerHTML= "Initialised";
+    document.getElementById("p_initButton").innerHTML= "Initialised";
+    document.getElementById("p_initButton").setAttribute("disabled","true")
 };
 
 /**************************************************************/

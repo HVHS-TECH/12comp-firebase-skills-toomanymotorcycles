@@ -29,7 +29,12 @@ function fb_read() {
     console.log('%c fb_read(): ',
         'color: ' + COL_C + '; background-color: ' + COL_B + ';'
     );
-    const reference = ref(FB_DATABASE, "pOoae48Ua6M9TFOybmZAHx4Zydl1");
+    if (window.user != null) {
+        console.log("Attempting to write value as user \"" + user.displayName +"\"") ;   
+    } else {
+        console.log("Attempting to write value as anonymous user");
+    }
+    const reference = ref(FB_DATABASE, "/xP8RZ3QKIxamS5hIiVJ2WEdUovb2/thing");
     get(reference).then((snapshot) => {
         var fb_data = snapshot.val();
         if (fb_data != null) {
@@ -39,14 +44,33 @@ function fb_read() {
         }
 
     }).catch((error) => {
-        console.warn(error.code + " - " + error.message);
+        if (error.message = "Permission denied.") {
+            console.warn("PERMISSION DENIED - you do not have permission to read from the database here.")
+        } else {
+            console.warn(error.code + " - " + error.message);
+        }
     });
 };
 
 function fb_write() {
     console.log('%c fb_write(): ',
-        'color: ' + COL_C + '; background-color: ' + COL_B + ';');
-
+        'color: ' + COL_C + '; background-color: ' + COL_B + ';'
+    );
+    if (window.user != null) {
+        console.log("Attempting to write value as user \"" + user.displayName +"\"")  ;
+    } else {
+        console.log("Attempting to write value as anonymous user");
+    }
+    const reference = ref(FB_DATABASE, "/xP8RZ3QKIxamS5hIiVJ2WEdUovb2/thing2");
+    set(reference, "stuff").then(() => {
+        console.log("Write successful.")
+    }).catch((error) => {
+        if (error.message = "Permission denied.") {
+            console.warn("PERMISSION DENIED - you do not have permission to write to the database here.")
+        } else {
+            console.warn(error.code + " - " + error.message);
+        }
+    });
 };
 
 /**************************************************************/

@@ -16,9 +16,11 @@ console.log('%c main.mjs',
 import {fb_initialise}
     from './fb_io.mjs';
     window.fb_initialise   = fb_initialise;
-import {fb_login}
+import {fb_login,fb_logout, fb_authCheck}
     from './fb_authhandler.mjs';
     window.fb_login   = fb_login;
+    window.fb_logout   = fb_logout;
+    window.fb_authCheck   = fb_authCheck;
 import {fb_read, fb_write}
     from './fb_readwrite.mjs';
     window.fb_read   = fb_read;
