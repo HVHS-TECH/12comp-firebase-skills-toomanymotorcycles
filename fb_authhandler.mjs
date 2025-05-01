@@ -13,7 +13,7 @@ console.log('%c fb_authhandler.mjs',
 
 /**************************************************************/
 // Import all external constants & functions required
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 /**************************************************************/
 // Import all the methods you want to call from the firebase modules
 
