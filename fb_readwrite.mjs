@@ -23,9 +23,9 @@ import { ref, query, orderByChild, limitToFirst, get, set, update } from "https:
 // EXPORT FUNCTIONS
 // List all the functions called by code or html outside of this module
 /**************************************************************/
-export { fb_read, fb_readpath, fb_write, fb_update, fb_sortedread };
+export { fb_read, fb_readpath, fb_write, fb_update, fb_sortedread, fb_getadmin };
 
-function fb_read() {
+function fb_read(path) {
     console.log('%c fb_read(): ',
         'color: ' + COL_C + '; background-color: ' + COL_B + ';'
     );
@@ -34,16 +34,48 @@ function fb_read() {
     } else {
         console.log("Attempting to read value as anonymous user");
     }
-    const reference = ref(FB_DATABASE, "/xP8RZ3QKIxamS5hIiVJ2WEdUovb2/thing");
+    const reference = ref(FB_DATABASE, path);
     get(reference).then((snapshot) => {
         var fb_data = snapshot.val();
         if (fb_data != null) {
             console.log(fb_data);
+            return fb_data;
         } else {
             console.warn("The data at \'" + ref + "\' was not found.");
         }
 
     }).catch((error) => {
+        console.warn(error.code + " - " + error.message);
+        if (error.message = "Permission denied.") {
+            console.warn("PERMISSION DENIED - you do not have permission to read the database at the queried location.")
+        } else {
+            console.warn(error.code + " - " + error.message);
+        }
+    });
+};
+
+function fb_getadmin() {
+    console.log('%c fb_getadmin(): ',
+        'color: ' + COL_C + '; background-color: ' + COL_B + ';'
+    );
+    console.log("Getting admin status of user...");
+    const reference = ref(FB_DATABASE, "/admin/" + user.uid + "/role");
+    get(reference).then((snapshot) => {
+        var fb_data = snapshot.val();
+        if (fb_data != null) {
+            if (fb_data == "admin") {
+                console.log("ADMIN");
+                document.getElementById("h2_fbAdmin").innerHTML = "YOU ARE CURRENTLY LOGGED IN WITH AN ADMIN ACCOUNT";
+            } else {
+                console.log("NOT ADMIN");
+                document.getElementById("h2_fbAdmin").innerHTML = "";
+            }
+        } else {
+            console.warn("The data at \'" + ref + "\' was not found.");
+        }
+
+    }).catch((error) => {
+        console.warn(error.code + " - " + error.message);
         if (error.message = "Permission denied.") {
             console.warn("PERMISSION DENIED - you do not have permission to read the database at the queried location.")
         } else {
@@ -61,7 +93,7 @@ function fb_readpath() {
     } else {
         console.log("Attempting to read path as anonymous user");
     }
-    const reference = ref(FB_DATABASE, "/xP8RZ3QKIxamS5hIiVJ2WEdUovb2");
+    const reference = ref(FB_DATABASE, "/userData/xP8RZ3QKIxamS5hIiVJ2WEdUovb2");
     get(reference).then((snapshot) => {
         var fb_data = snapshot.val();
         if (fb_data != null) {
@@ -88,7 +120,7 @@ function fb_write() {
     } else {
         console.log("Attempting to write value as anonymous user");
     }
-    const reference = ref(FB_DATABASE, "/xP8RZ3QKIxamS5hIiVJ2WEdUovb2/thing2");
+    const reference = ref(FB_DATABASE, "/userData/xP8RZ3QKIxamS5hIiVJ2WEdUovb2/thing2");
     set(reference, "stuff").then(() => {
         console.log("Write successful.")
     }).catch((error) => {
@@ -109,7 +141,7 @@ function fb_update() {
     } else {
         console.log("Attempting to update value as anonymous user");
     }
-    const reference = ref(FB_DATABASE, "/xP8RZ3QKIxamS5hIiVJ2WEdUovb2");
+    const reference = ref(FB_DATABASE, "/userData/xP8RZ3QKIxamS5hIiVJ2WEdUovb2");
     update(reference, {thing2:"UPDATED STUFF"}).then(() => {
         console.log("Update successful.")
     }).catch((error) => {
@@ -130,8 +162,8 @@ function fb_sortedread() {
     } else {
         console.log("Attempting to read value as anonymous user");
     }
-    const reference = query(ref(FB_DATABASE, "/xP8RZ3QKIxamS5hIiVJ2WEdUovb2/randomStuff"), orderByChild("key1"), limitToFirst(10));
-    get(reference).then((snapshot) => {
+    const reference = query(ref(FB_DATABASE, "/userData/EXAMPLEUID"), orderByChild("order"), limitToFirst(10));
+    get(query(ref(FB_DATABASE, "/userData/EXAMPLEUID"), orderByChild("order"))).then((snapshot) => {
         var fb_data = snapshot.val();
         if (fb_data != null) {
             console.log(fb_data);
@@ -140,6 +172,7 @@ function fb_sortedread() {
         }
 
     }).catch((error) => {
+        console.warn(error.code + " - " + error.message);
         if (error.message = "Permission denied.") {
             console.warn("PERMISSION DENIED - you do not have permission to read the database at the queried location.")
         } else {

@@ -14,6 +14,7 @@ console.log('%c fb_authhandler.mjs',
 /**************************************************************/
 // Import all external constants & functions required
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+import { fb_getadmin } from "./fb_readwrite.mjs";
 /**************************************************************/
 // Import all the methods you want to call from the firebase modules
 
@@ -33,6 +34,8 @@ function fb_authCheck(manualCall) {
           }
           window.user = user
           document.getElementById("p_fbLogin").innerHTML= user.displayName;
+          console.log(toString(fb_getadmin()))
+          fb_getadmin()
         } else {
           if (manualCall) {
             console.log ("No current logged-in user.")

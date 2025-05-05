@@ -32,7 +32,7 @@
 
             <div class="column">
                 <button id="fb_writeButton" onclick="fb_write()" disabled>t07: write record</button>
-                <button id="fb_readButton" onclick="fb_read()" disabled>t08: read record</button>
+                <button id="fb_readButton" onclick="fb_read('/admin')" disabled>t08: read record</button>
                 <button id="fb_readAllButton" onclick="fb_readpath()" disabled>t09: read all</button>
                 <button id="fb_updateButton" onclick="fb_update()" disabled>t10: update record</button>
             </div>
@@ -62,6 +62,9 @@
             <p class="p_fbStatus">listen: <span id="p_fbListen"> n/a</span></p>
             <p class="p_fbStatus">delete rec: <span id="p_fbDeleteRec"> n/a</span></p>
             <p class="p_fbStatus">debug: <span id="p_debug"> n/a</span></p>
+        </div>
+        <div style="padding:8px;">
+            <h2 class="h2_fbStatus"><strong><span id="h2_fbAdmin"></span></strong></p>
         </div>
     </footer>
 
