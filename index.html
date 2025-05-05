@@ -32,17 +32,15 @@
 
             <div class="column">
                 <button id="fb_writeButton" onclick="fb_write()" disabled>t07: write record</button>
-                <button id="fb_readButton" onclick="fb_read('/admin')" disabled>t08: read record</button>
+                <button id="fb_readButton" onclick="fb_read('/userData/xP8RZ3QKIxamS5hIiVJ2WEdUovb2')" disabled>t08: read record</button>
                 <button id="fb_readAllButton" onclick="fb_readpath()" disabled>t09: read all</button>
                 <button id="fb_updateButton" onclick="fb_update()" disabled>t10: update record</button>
             </div>
 
             <div class="column">
                 <button id="fb_sortedReadButton" onclick="fb_sortedread()" disabled>t11: sorted read</button>
-                <!-- EXTENSIONS
-                <button id="fb_listenButton" onclick="">ext(a): listen for changes</button>
-                <button id="fb_deleteButton" onclick="">ext(b): delete record</button>
-                -->
+                <button id="fb_listenButton" onclick="fb_listen()" disabled>ext(a): listen for changes</button>
+                <button id="fb_deleteButton" onclick="" disabled>ext(b): delete record</button>
             </div>
         </div>
     </section>

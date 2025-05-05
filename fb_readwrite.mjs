@@ -14,7 +14,7 @@ console.log('%c fb_readwrite.mjs',
 
 /**************************************************************/
 // Import all external constants & functions required
-import { ref, query, orderByChild, limitToFirst, get, set, update } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
+import { ref, query, orderByChild, limitToFirst, get, set, update, onValue } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
 /**************************************************************/
 // Import all the methods you want to call from the firebase modules
 
@@ -23,7 +23,7 @@ import { ref, query, orderByChild, limitToFirst, get, set, update } from "https:
 // EXPORT FUNCTIONS
 // List all the functions called by code or html outside of this module
 /**************************************************************/
-export { fb_read, fb_readpath, fb_write, fb_update, fb_sortedread, fb_getadmin };
+export { fb_read, fb_readpath, fb_write, fb_update, fb_sortedread, fb_getadmin, fb_listen};
 
 function fb_read(path) {
     console.log('%c fb_read(): ',
@@ -162,8 +162,8 @@ function fb_sortedread() {
     } else {
         console.log("Attempting to read value as anonymous user");
     }
-    const reference = query(ref(FB_DATABASE, "/userData/EXAMPLEUID"), orderByChild("order"), limitToFirst(10));
-    get(query(ref(FB_DATABASE, "/userData/EXAMPLEUID"), orderByChild("order"))).then((snapshot) => {
+    const reference = query(ref(FB_DATABASE, "/userData"), orderByChild("order"), limitToFirst(10));
+    get(reference).then((snapshot) => {
         var fb_data = snapshot.val();
         if (fb_data != null) {
             console.log(fb_data);
@@ -175,6 +175,36 @@ function fb_sortedread() {
         console.warn(error.code + " - " + error.message);
         if (error.message = "Permission denied.") {
             console.warn("PERMISSION DENIED - you do not have permission to read the database at the queried location.")
+        } else {
+            console.warn(error.code + " - " + error.message);
+        }
+    });
+};
+
+function fb_listen(path) {
+    console.log('%c fb_listen(): ',
+        'color: ' + COL_C + '; background-color: ' + COL_B + ';'
+    );
+    if (window.user != null) {
+        console.log("Attempting to set up listener on value as user \"" + user.displayName +"\"") ;   
+    } else {
+        console.log("Attempting to set up listener on value as anonymous user");
+    }
+    const reference = ref(FB_DATABASE, path);
+    onValue(reference).then((snapshot) => {
+        console.log("LISTENER ACTIVATED")
+        var fb_data = snapshot.val();
+        if (fb_data != null) {
+            console.log(fb_data);
+            return fb_data;
+        } else {
+            console.warn("The data at \'" + ref + "\' was not found.");
+        }
+
+    }).catch((error) => {
+        console.warn(error.code + " - " + error.message);
+        if (error.message = "Permission denied.") {
+            console.warn("PERMISSION DENIED - you do not have permission to set up a listener at the queried location.")
         } else {
             console.warn(error.code + " - " + error.message);
         }

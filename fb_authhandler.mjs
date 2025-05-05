@@ -42,6 +42,7 @@ function fb_authCheck(manualCall) {
           }
           window.user = undefined
           document.getElementById("p_fbLogin").innerHTML = "None";
+          document.getElementById("h2_fbAdmin").innerHTML = "";
         }
     }, (error) => {
       console.warn("AUTHENTICATION CHECK ERROR: " + error.code + " - " + error.message)
