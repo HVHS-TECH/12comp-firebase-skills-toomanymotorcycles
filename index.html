@@ -24,24 +24,24 @@
     <section>
         <div class="container">
             <div class="column">
-                <button id="p_initButton" onclick="fb_initialise()">t03: initialise firebase</button>
-                <button onclick="fb_login()">t04: authenticate</button>
-                <button onclick="fb_authCheck(true)">t05: detect login change</button>
-                <button onclick="fb_logout()">t06: logout</button>
+                <button id="fb_initButton" onclick="fb_initialise()">t03: initialise firebase</button>
+                <button id="fb_loginButton" onclick="fb_login()" disabled>t04: authenticate</button>
+                <button id="fb_authButton" onclick="fb_authCheck(true)" disabled>t05: detect login change</button>
+                <button id="fb_logoutButton" onclick="fb_logout()" disabled>t06: logout</button>
             </div>
 
             <div class="column">
-                <button onclick="fb_write()">t07: write record</button>
-                <button onclick="fb_read()">t08: read record</button>
-                <button onclick="">t09: read all</button>
-                <button onclick="">t10: update record</button>
+                <button id="fb_writeButton" onclick="fb_write()" disabled>t07: write record</button>
+                <button id="fb_readButton" onclick="fb_read()" disabled>t08: read record</button>
+                <button id="fb_readAllButton" onclick="fb_readpath()" disabled>t09: read all</button>
+                <button id="fb_updateButton" onclick="fb_update()" disabled>t10: update record</button>
             </div>
 
             <div class="column">
-                <button onclick="">t11: sorted read</button>
+                <button id="fb_sortedReadButton" onclick="fb_sortedread()" disabled>t11: sorted read</button>
                 <!-- EXTENSIONS
-                <button onclick="">ext(a): listen for changes</button>
-                <button onclick="">ext(b): delete record</button>
+                <button id="fb_listenButton" onclick="">ext(a): listen for changes</button>
+                <button id="fb_deleteButton" onclick="">ext(b): delete record</button>
                 -->
             </div>
         </div>

@@ -21,10 +21,13 @@ import {fb_login,fb_logout, fb_authCheck}
     window.fb_login   = fb_login;
     window.fb_logout   = fb_logout;
     window.fb_authCheck   = fb_authCheck;
-import {fb_read, fb_write}
+import {fb_read, fb_readpath, fb_write, fb_update, fb_sortedread}
     from './fb_readwrite.mjs';
     window.fb_read   = fb_read;
+    window.fb_readpath   = fb_readpath;
     window.fb_write   = fb_write;
+    window.fb_update = fb_update;
+    window.fb_sortedread = fb_sortedread;
 /**************************************************************/
 // index.html main code
 /**************************************************************/

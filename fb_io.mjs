@@ -48,8 +48,13 @@ function fb_initialise() {
     console.log(FB_DATABASE) //DIAG
     window.FB_GAMEAPP = FB_GAMEAPP;
     window.FB_DATABASE = FB_DATABASE;
-    document.getElementById("p_initButton").innerHTML= "Initialised";
-    document.getElementById("p_initButton").setAttribute("disabled","true")
+    let allButtons = document.getElementsByTagName("button");
+    console.log(allButtons)
+    for(let i=0;i<allButtons.length;i++) {
+      allButtons[i].removeAttribute("disabled")
+    }
+    document.getElementById("fb_initButton").innerHTML= "Initialised";
+    document.getElementById("fb_initButton").setAttribute("disabled","true")
 };
 
 /**************************************************************/
