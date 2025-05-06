@@ -21,7 +21,7 @@ import {fb_login,fb_logout, fb_authCheck}
     window.fb_login   = fb_login;
     window.fb_logout   = fb_logout;
     window.fb_authCheck   = fb_authCheck;
-import {fb_read, fb_readpath, fb_write, fb_update, fb_sortedread, fb_listen}
+import {fb_read, fb_readpath, fb_write, fb_update, fb_sortedread, fb_listen, fb_delete}
     from './fb_readwrite.mjs';
     window.fb_read   = fb_read;
     window.fb_readpath   = fb_readpath;
@@ -29,6 +29,7 @@ import {fb_read, fb_readpath, fb_write, fb_update, fb_sortedread, fb_listen}
     window.fb_update = fb_update;
     window.fb_sortedread = fb_sortedread;
     window.fb_listen = fb_listen;
+    window.fb_delete = fb_delete;
 /**************************************************************/
 // index.html main code
 /**************************************************************/

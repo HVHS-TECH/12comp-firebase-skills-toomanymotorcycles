@@ -14,7 +14,7 @@ console.log('%c fb_readwrite.mjs',
 
 /**************************************************************/
 // Import all external constants & functions required
-import { ref, query, orderByChild, limitToFirst, get, set, update, onValue } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
+import { ref, query, orderByChild, limitToFirst, get, set, update, onValue, remove } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
 /**************************************************************/
 // Import all the methods you want to call from the firebase modules
 
@@ -23,7 +23,7 @@ import { ref, query, orderByChild, limitToFirst, get, set, update, onValue } fro
 // EXPORT FUNCTIONS
 // List all the functions called by code or html outside of this module
 /**************************************************************/
-export { fb_read, fb_readpath, fb_write, fb_update, fb_sortedread, fb_getadmin, fb_listen};
+export { fb_read, fb_readpath, fb_write, fb_update, fb_sortedread, fb_getadmin, fb_listen, fb_delete};
 
 function fb_read(path) {
     console.log('%c fb_read(): ',
@@ -84,7 +84,7 @@ function fb_getadmin() {
     });
 };
 
-function fb_readpath() {
+function fb_readpath(path) {
     console.log('%c fb_readpath(): ',
         'color: ' + COL_C + '; background-color: ' + COL_B + ';'
     );
@@ -93,7 +93,7 @@ function fb_readpath() {
     } else {
         console.log("Attempting to read path as anonymous user");
     }
-    const reference = ref(FB_DATABASE, "/userData/xP8RZ3QKIxamS5hIiVJ2WEdUovb2");
+    const reference = ref(FB_DATABASE, path);
     get(reference).then((snapshot) => {
         var fb_data = snapshot.val();
         if (fb_data != null) {
@@ -111,7 +111,7 @@ function fb_readpath() {
     });
 };
 
-function fb_write() {
+function fb_write(path, value) {
     console.log('%c fb_write(): ',
         'color: ' + COL_C + '; background-color: ' + COL_B + ';'
     );
@@ -120,8 +120,8 @@ function fb_write() {
     } else {
         console.log("Attempting to write value as anonymous user");
     }
-    const reference = ref(FB_DATABASE, "/userData/xP8RZ3QKIxamS5hIiVJ2WEdUovb2/thing2");
-    set(reference, "stuff").then(() => {
+    const reference = ref(FB_DATABASE, path);
+    set(reference, value).then(() => {
         console.log("Write successful.")
     }).catch((error) => {
         if (error.message = "Permission denied.") {
@@ -132,7 +132,7 @@ function fb_write() {
     });
 };
 
-function fb_update() {
+function fb_update(path, value) {
     console.log('%c fb_update(): ',
         'color: ' + COL_C + '; background-color: ' + COL_B + ';'
     );
@@ -141,8 +141,8 @@ function fb_update() {
     } else {
         console.log("Attempting to update value as anonymous user");
     }
-    const reference = ref(FB_DATABASE, "/userData/xP8RZ3QKIxamS5hIiVJ2WEdUovb2");
-    update(reference, {thing2:"UPDATED STUFF"}).then(() => {
+    const reference = ref(FB_DATABASE, path);
+    update(reference, value).then(() => {
         console.log("Update successful.")
     }).catch((error) => {
         if (error.message = "Permission denied.") {
@@ -153,7 +153,7 @@ function fb_update() {
     });
 }
 
-function fb_sortedread() {
+function fb_sortedread(path, orderKey, limit) {
     console.log('%c fb_sortedread(): ',
         'color: ' + COL_C + '; background-color: ' + COL_B + ';'
     );
@@ -162,7 +162,7 @@ function fb_sortedread() {
     } else {
         console.log("Attempting to read value as anonymous user");
     }
-    const reference = query(ref(FB_DATABASE, "/userData"), orderByChild("order"), limitToFirst(10));
+    const reference = query(ref(FB_DATABASE, path), orderByChild(orderKey), limitToFirst(limit));
     get(reference).then((snapshot) => {
         var fb_data = snapshot.val();
         if (fb_data != null) {
@@ -205,6 +205,28 @@ function fb_listen(path) {
         console.warn(error.code + " - " + error.message);
         if (error.message = "Permission denied.") {
             console.warn("PERMISSION DENIED - you do not have permission to set up a listener at the queried location.")
+        } else {
+            console.warn(error.code + " - " + error.message);
+        }
+    });
+};
+
+function fb_delete(path) {
+    console.log('%c fb_delete(): ',
+        'color: ' + COL_C + '; background-color: ' + COL_B + ';'
+    );
+    if (window.user != null) {
+        console.log("Attempting to delete value as user \"" + user.displayName +"\"") ;   
+    } else {
+        console.log("Attempting to delete value as anonymous user");
+    }
+    const reference = ref(FB_DATABASE, path);
+    remove(reference).then(() => {
+        console.log("Removal successful.")
+    }).catch((error) => {
+        console.warn(error.code + " - " + error.message);
+        if (error.message = "Permission denied.") {
+            console.warn("PERMISSION DENIED - you do not have permission to delete the value at the queried location.")
         } else {
             console.warn(error.code + " - " + error.message);
         }

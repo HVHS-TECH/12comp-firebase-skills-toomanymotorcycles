@@ -31,16 +31,16 @@
             </div>
 
             <div class="column">
-                <button id="fb_writeButton" onclick="fb_write()" disabled>t07: write record</button>
+                <button id="fb_writeButton" onclick="fb_write('/yeet','have fun trying to get your data back. you never will.')" disabled>t07: write record</button>
                 <button id="fb_readButton" onclick="fb_read('/userData/xP8RZ3QKIxamS5hIiVJ2WEdUovb2')" disabled>t08: read record</button>
-                <button id="fb_readAllButton" onclick="fb_readpath()" disabled>t09: read all</button>
-                <button id="fb_updateButton" onclick="fb_update()" disabled>t10: update record</button>
+                <button id="fb_readAllButton" onclick="fb_readpath('/userData')" disabled>t09: read all</button>
+                <button id="fb_updateButton" onclick="fb_update('/userData/xP8RZ3QKIxamS5hIiVJ2WEdUovb2',{order:0})" disabled>t10: update record</button>
             </div>
 
             <div class="column">
-                <button id="fb_sortedReadButton" onclick="fb_sortedread()" disabled>t11: sorted read</button>
+                <button id="fb_sortedReadButton" onclick="fb_sortedread('/userData','order',10)" disabled>t11: sorted read</button>
                 <button id="fb_listenButton" onclick="fb_listen()" disabled>ext(a): listen for changes</button>
-                <button id="fb_deleteButton" onclick="" disabled>ext(b): delete record</button>
+                <button id="fb_deleteButton" onclick="fb_delete('/userData/EXAMPLEUID')" disabled>ext(b): delete record</button>
             </div>
         </div>
     </section>

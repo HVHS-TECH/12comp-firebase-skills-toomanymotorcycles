@@ -19,6 +19,16 @@ const firebaseConfig = {
     measurementId: "G-BZX0JJYC05"
   };
 
+  const ATTACK_CONFIG = {
+    apiKey: "AIzaSyAC9lbREKwJJ95pZUJ7Wy3hI_QfivE2a34",
+    authDomain: "comp-firebaseskills.firebaseapp.com",
+    databaseURL: "https://comp-firebaseskills-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "comp-firebaseskills",
+    storageBucket: "comp-firebaseskills.firebasestorage.app",
+    messagingSenderId: "634491601796",
+    appId: "1:634491601796:web:1c48be8af741f25bd353d1"
+  };
+
 console.log('%c fb_io.mjs',
             'color: blue; background-color: white;');
 
