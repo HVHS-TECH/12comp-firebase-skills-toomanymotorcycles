@@ -39,6 +39,7 @@ function fb_read(path) {
         var fb_data = snapshot.val();
         if (fb_data != null) {
             console.log(fb_data);
+            document.getElementById("p_fbReadRec").innerHTML = fb_data;
             return fb_data;
         } else {
             console.warn("The data at \'" + ref + "\' was not found.");
@@ -48,6 +49,8 @@ function fb_read(path) {
         console.warn(error.code + " - " + error.message);
         if (error.message = "Permission denied.") {
             console.warn("PERMISSION DENIED - you do not have permission to read the database at the queried location.")
+            document.getElementById("p_fbReadRec").innerHTML = "Permission denied.";
+            alert("PERMISSION DENIED - you do not have permission to read the database at the queried location.")
         } else {
             console.warn(error.code + " - " + error.message);
         }
@@ -78,6 +81,7 @@ function fb_getadmin() {
         console.warn(error.code + " - " + error.message);
         if (error.message = "Permission denied.") {
             console.warn("PERMISSION DENIED - you do not have permission to read the database at the queried location.")
+            alert("PERMISSION DENIED - you do not have permission to read the database at the queried location.")
         } else {
             console.warn(error.code + " - " + error.message);
         }
@@ -98,6 +102,7 @@ function fb_readpath(path) {
         var fb_data = snapshot.val();
         if (fb_data != null) {
             console.log(fb_data);
+            document.getElementById("p_fbReadAll").innerHTML = fb_data;
         } else {
             console.warn("The data at \'" + ref + "\' was not found.");
         }
@@ -105,6 +110,8 @@ function fb_readpath(path) {
     }).catch((error) => {
         if (error.message = "Permission denied.") {
             console.warn("PERMISSION DENIED - you do not have permission to read the database at the queried location.")
+            document.getElementById("p_fbReadAll").innerHTML = "Permission denied.";
+            alert("PERMISSION DENIED - you do not have permission to read the database at the queried location.")
         } else {
             console.warn(error.code + " - " + error.message);
         }
@@ -123,9 +130,12 @@ function fb_write(path, value) {
     const reference = ref(FB_DATABASE, path);
     set(reference, value).then(() => {
         console.log("Write successful.")
+        document.getElementById("p_fbWriteRec").innerHTML = "Success.";
     }).catch((error) => {
         if (error.message = "Permission denied.") {
+            document.getElementById("p_fbWriteRec").innerHTML = "Permission denied.";
             console.warn("PERMISSION DENIED - you do not have permission to write to the database at the queried location.")
+            alert("PERMISSION DENIED - you do not have permission to write to the database at the queried location.")
         } else {
             console.warn(error.code + " - " + error.message);
         }
@@ -144,9 +154,12 @@ function fb_update(path, value) {
     const reference = ref(FB_DATABASE, path);
     update(reference, value).then(() => {
         console.log("Update successful.")
+        document.getElementById("p_fbUpdateRec").innerHTML = "Success.";
     }).catch((error) => {
         if (error.message = "Permission denied.") {
             console.warn("PERMISSION DENIED - you do not have permission to update the database at the queried location.")
+            document.getElementById("p_fbUpdateRec").innerHTML = "Permission denied.";
+            alert("PERMISSION DENIED - you do not have permission to update the database at the queried location.")
         } else {
             console.warn(error.code + " - " + error.message);
         }
@@ -167,6 +180,7 @@ function fb_sortedread(path, orderKey, limit) {
         var fb_data = snapshot.val();
         if (fb_data != null) {
             console.log(fb_data);
+            document.getElementById("p_fbReadSorted").innerHTML = fb_data;
         } else {
             console.warn("The data at \'" + ref + "\' was not found.");
         }
@@ -174,7 +188,9 @@ function fb_sortedread(path, orderKey, limit) {
     }).catch((error) => {
         console.warn(error.code + " - " + error.message);
         if (error.message = "Permission denied.") {
+            document.getElementById("p_fbReadSorted").innerHTML = "Permission denied.";
             console.warn("PERMISSION DENIED - you do not have permission to read the database at the queried location.")
+            alert("PERMISSION DENIED - you do not have permission to read the database at the queried location.")
         } else {
             console.warn(error.code + " - " + error.message);
         }
@@ -196,6 +212,7 @@ function fb_listen(path) {
         var fb_data = snapshot.val();
         if (fb_data != null) {
             console.log(fb_data);
+            document.getElementById("p_fbListen").innerHTML = fb_data;
             return fb_data;
         } else {
             console.warn("The data at \'" + ref + "\' was not found.");
@@ -204,7 +221,9 @@ function fb_listen(path) {
     }).catch((error) => {
         console.warn(error.code + " - " + error.message);
         if (error.message = "Permission denied.") {
+            document.getElementById("p_fbListen").innerHTML = "Permission denied.";
             console.warn("PERMISSION DENIED - you do not have permission to set up a listener at the queried location.")
+            alert("PERMISSION DENIED - you do not have permission to set up a listener at the queried location.")
         } else {
             console.warn(error.code + " - " + error.message);
         }
@@ -223,10 +242,13 @@ function fb_delete(path) {
     const reference = ref(FB_DATABASE, path);
     remove(reference).then(() => {
         console.log("Removal successful.")
+        document.getElementById("p_deleteRec").innerHTML = "Success.";
     }).catch((error) => {
         console.warn(error.code + " - " + error.message);
         if (error.message = "Permission denied.") {
+            document.getElementById("p_fbDeleteRec").innerHTML = "Permission denied.";
             console.warn("PERMISSION DENIED - you do not have permission to delete the value at the queried location.")
+            alert("PERMISSION DENIED - you do not have permission to delete the value at the queried location.")
         } else {
             console.warn(error.code + " - " + error.message);
         }
