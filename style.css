@@ -40,6 +40,11 @@ body {
   
   button:hover {
     background-color: #0056b3;
+    border-bottom-color: #00356d;
+  }
+
+  button:active {
+    background-color: #0056b3;
     border-bottom: 1px;
     border-bottom-style: solid;
     border-bottom-color: #00356d;
@@ -47,8 +52,6 @@ body {
 
   button:disabled {
     background-color: #9dccff;
-    border-bottom: 5px;
-    border-bottom-style: solid;
     border-bottom-color: rgb(95, 159, 226);
   }
   
