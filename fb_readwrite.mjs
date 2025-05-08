@@ -207,7 +207,7 @@ function fb_listen(path) {
         console.log("Attempting to set up listener on value as anonymous user");
     }
     const reference = ref(FB_DATABASE, path);
-    onValue(reference).then((snapshot) => {
+    onValue(reference, (snapshot) => {
         console.log("LISTENER ACTIVATED")
         var fb_data = snapshot.val();
         if (fb_data != null) {
@@ -218,15 +218,6 @@ function fb_listen(path) {
             console.warn("The data at \'" + ref + "\' was not found.");
         }
 
-    }).catch((error) => {
-        console.warn(error.code + " - " + error.message);
-        if (error.message = "Permission denied.") {
-            document.getElementById("p_fbListen").innerHTML = "Permission denied.";
-            console.warn("PERMISSION DENIED - you do not have permission to set up a listener at the queried location.")
-            alert("PERMISSION DENIED - you do not have permission to set up a listener at the queried location.")
-        } else {
-            console.warn(error.code + " - " + error.message);
-        }
     });
 };
 
