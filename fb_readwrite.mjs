@@ -9,12 +9,12 @@
 const COL_C = 'white';	    // These two const are part of the coloured 	
 const COL_B = '#CD7F32';	//  console.log for functions scheme
 
-console.log('%c fb_readwrite.mjs',
+console.log('%c fb_readwrite.mjs initialised',
     'color: blue; background-color: white;');
 
 /**************************************************************/
 // Import all external constants & functions required
-import { ref, query, orderByChild, limitToFirst, get, set, update, onValue, remove } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
+import { ref, query, orderByChild, limitToFirst, limitToLast, get, set, update, onValue, remove} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
 /**************************************************************/
 // Import all the methods you want to call from the firebase modules
 
@@ -25,6 +25,11 @@ import { ref, query, orderByChild, limitToFirst, get, set, update, onValue, remo
 /**************************************************************/
 export { fb_read, fb_readpath, fb_write, fb_update, fb_sortedread, fb_getadmin, fb_listen, fb_delete};
 
+/**************************************************************/
+// function fb_read(path)
+// Written by Joshua Kessell-Haak, Term 1 2025
+// Reads the value at {variable path} in the database.
+/**************************************************************/
 function fb_read(path) {
     console.log('%c fb_read(): ',
         'color: ' + COL_C + '; background-color: ' + COL_B + ';'
@@ -57,6 +62,11 @@ function fb_read(path) {
     });
 };
 
+/**************************************************************/
+// function fb_getadmin()
+// Written by Joshua Kessell-Haak, Term 1 2025
+// Effectively a single-purpose read function, only used at login and when login is checked.
+/**************************************************************/
 function fb_getadmin() {
     console.log('%c fb_getadmin(): ',
         'color: ' + COL_C + '; background-color: ' + COL_B + ';'
@@ -88,6 +98,11 @@ function fb_getadmin() {
     });
 };
 
+/**************************************************************/
+// // function fb_readpath(path)
+// Written by Joshua Kessell-Haak, Term 1 2025
+// Exactly the same function as function fb_read(path).
+/**************************************************************/
 function fb_readpath(path) {
     console.log('%c fb_readpath(): ',
         'color: ' + COL_C + '; background-color: ' + COL_B + ';'
@@ -118,6 +133,11 @@ function fb_readpath(path) {
     });
 };
 
+/**************************************************************/
+// function fb_write(path, value)
+// Written by Joshua Kessell-Haak, Term 1 2025
+// Writes {variable value} to the database at {variable path}. Overwrites all data at that location.
+/**************************************************************/
 function fb_write(path, value) {
     console.log('%c fb_write(): ',
         'color: ' + COL_C + '; background-color: ' + COL_B + ';'
@@ -142,6 +162,12 @@ function fb_write(path, value) {
     });
 };
 
+/**************************************************************/
+// // function fb_update(path, value)
+// Written by Joshua Kessell-Haak, Term 1 2025
+// Writes to the database at {variable path} based off the object passed with {variable value}.
+// If write location has multiple value/field pairs, only changes those specified in {variable value}.
+/**************************************************************/
 function fb_update(path, value) {
     console.log('%c fb_update(): ',
         'color: ' + COL_C + '; background-color: ' + COL_B + ';'
@@ -166,7 +192,17 @@ function fb_update(path, value) {
     });
 }
 
-function fb_sortedread(path, orderKey, limit) {
+/**************************************************************/
+// function fb_sortedread(path, orderKey, limit, orderDescending)
+// Written by Joshua Kessell-Haak, Term 1 2025
+// Reads the value at {variable path} in the database. 
+// Orders the returned values based on the field values of the values 
+// within the read location with the name of {variable orderKey}.
+// Will only return the number {variable limit} of values.
+// If {variable orderDescending} is true, the returned values are ordered 
+// on descending order instead of ascending order.
+/**************************************************************/
+function fb_sortedread(path, orderKey, limit, orderDescending) {
     console.log('%c fb_sortedread(): ',
         'color: ' + COL_C + '; background-color: ' + COL_B + ';'
     );
@@ -175,16 +211,22 @@ function fb_sortedread(path, orderKey, limit) {
     } else {
         console.log("Attempting to read value as anonymous user");
     }
-    const reference = query(ref(FB_DATABASE, path), orderByChild(orderKey), limitToFirst(limit));
-    get(reference).then((snapshot) => {
-        var fb_data = snapshot.val();
-        if (fb_data != null) {
-            console.log(fb_data);
-            document.getElementById("p_fbReadSorted").innerHTML = fb_data;
-        } else {
-            console.warn("The data at \'" + ref + "\' was not found.");
-        }
 
+    var reference;
+    if (orderDescending) { reference = query(ref(FB_DATABASE, path), orderByChild(orderKey), limitToLast(limit));} 
+    else {reference = query(ref(FB_DATABASE, path), orderByChild(orderKey), limitToFirst(limit));}
+
+    get(reference).then((allSnapshots) => {
+        if (allSnapshots != null) {
+            var fb_data = []
+        allSnapshots.forEach(function (snapshot) {
+            fb_data.push(snapshot.val());
+        })
+        if (orderDescending) {fb_data.reverse();}
+        console.log(fb_data)
+        } else {
+                console.warn("The data at \'" + ref + "\' was not found.");
+        }
     }).catch((error) => {
         console.warn(error.code + " - " + error.message);
         if (error.message = "Permission denied.") {
@@ -197,6 +239,12 @@ function fb_sortedread(path, orderKey, limit) {
     });
 };
 
+/**************************************************************/
+// // function fb_listen(path)
+// Written by Joshua Kessell-Haak, Term 1 2025
+// Sets up a listener on {variable path}. 
+// When anything changes at this location, the listener will trigger and return the new data.
+/**************************************************************/
 function fb_listen(path) {
     console.log('%c fb_listen(): ',
         'color: ' + COL_C + '; background-color: ' + COL_B + ';'
@@ -221,6 +269,11 @@ function fb_listen(path) {
     });
 };
 
+/**************************************************************/
+// function fb_delete(path)
+// Written by Joshua Kessell-Haak, Term 1 2025
+// Deletes the value at {variable path}
+/**************************************************************/
 function fb_delete(path) {
     console.log('%c fb_delete(): ',
         'color: ' + COL_C + '; background-color: ' + COL_B + ';'

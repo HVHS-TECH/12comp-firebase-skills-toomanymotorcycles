@@ -5,7 +5,7 @@
 /**************************************************************/
 const COL_C = 'white';	    // These two const are part of the coloured 	
 const COL_B = '#CD7F32';	//  console.log for functions scheme
-console.log('%c main.mjs', 
+console.log('%c main.mjs initialised', 
     'color: blue; background-color: white;');
 
 /**************************************************************/

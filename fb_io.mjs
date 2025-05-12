@@ -29,7 +29,7 @@ const firebaseConfig = {
     appId: "1:634491601796:web:1c48be8af741f25bd353d1"
   };
 
-console.log('%c fb_io.mjs',
+console.log('%c fb_io.mjs initialised',
             'color: blue; background-color: white;');
 
 /**************************************************************/
@@ -47,6 +47,11 @@ import { getDatabase } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-
 /**************************************************************/
 export {fb_initialise};
 
+/**************************************************************/
+// function fb_initialise()
+// Written by Joshua Kessell-Haak, Term 1 2025
+// Initialises the database
+/**************************************************************/
 function fb_initialise() {
     console.log('%c fb_initialise(): ', 
                 'color: ' + COL_C + '; background-color: ' + COL_B + ';');

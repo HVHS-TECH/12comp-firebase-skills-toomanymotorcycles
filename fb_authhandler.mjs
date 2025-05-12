@@ -8,7 +8,7 @@
 /**************************************************************/
 const COL_C = 'white';	    // These two const are part of the coloured 	
 const COL_B = '#CD7F32';	//  console.log for functions scheme
-console.log('%c fb_authhandler.mjs',
+console.log('%c fb_authhandler.mjs initialised',
             'color: blue; background-color: white;');
 
 /**************************************************************/
@@ -16,8 +16,6 @@ console.log('%c fb_authhandler.mjs',
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import { fb_getadmin } from "./fb_readwrite.mjs";
 /**************************************************************/
-// Import all the methods you want to call from the firebase modules
-
 
 /**************************************************************/
 // EXPORT FUNCTIONS
@@ -25,6 +23,13 @@ import { fb_getadmin } from "./fb_readwrite.mjs";
 /**************************************************************/
 export {fb_login,fb_logout,fb_authCheck};
 
+/**************************************************************/
+// function fb_authCheck(manualCall)
+// Written by Joshua Kessell-Haak, Term 1 2025
+// Checks if there is a logged-in user.
+// If there is a user, checks whether they are an admin or not via function fb_getadmin().
+// Prints the logged-in user to the console if {variable manualCall} is true
+/**************************************************************/
 function fb_authCheck(manualCall) {
   const AUTH = getAuth();
     onAuthStateChanged(AUTH, (user) => {
@@ -49,6 +54,11 @@ function fb_authCheck(manualCall) {
     });
 }
 
+/**************************************************************/
+// function fb_login()
+// Written by Joshua Kessell-Haak, Term 1 2025
+// Logs the user into their account within the database via Google.
+/**************************************************************/
 function fb_login() {
   const AUTH = getAuth();
   const PROVIDER = new GoogleAuthProvider();
@@ -68,6 +78,11 @@ PROVIDER.setCustomParameters({
   });
 };
 
+/**************************************************************/
+// function fb_logout()
+// Written by Joshua Kessell-Haak, Term 1 2025
+// Logs the user out.
+/**************************************************************/
 function fb_logout() {
   const AUTH = getAuth();
     signOut(AUTH).then(() => {
