@@ -25,6 +25,12 @@ import { ref, query, orderByChild, limitToFirst, limitToLast, get, set, update, 
 /**************************************************************/
 export { fb_read, fb_readpath, fb_write, fb_update, fb_sortedread, fb_getadmin, fb_listen, fb_delete};
 
+
+function randomInteger(digits) {
+    return Math.floor(Math.random()*(10**digits))
+}
+console.log("RANDOMTEST "+ randomInteger(10))
+
 /**************************************************************/
 // function fb_read(path)
 // Written by Joshua Kessell-Haak, Term 1 2025
@@ -299,6 +305,11 @@ function fb_delete(path) {
     });
 };
 
+function fb_junk(amount) {
+    for(i=0;i<amount;i++) {
+        fb_write("/restrictedData/"+randomInteger(10)+"/order",randomInteger(3));
+    }
+}
 
 
 /**************************************************************/
