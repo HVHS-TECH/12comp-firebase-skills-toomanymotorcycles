@@ -19,7 +19,7 @@ const firebaseConfig = {
     measurementId: "G-BZX0JJYC05"
   };
 
-  const ATTACK_CONFIG = {
+const ATTACK_CONFIG = {
     apiKey: "AIzaSyAC9lbREKwJJ95pZUJ7Wy3hI_QfivE2a34",
     authDomain: "comp-firebaseskills.firebaseapp.com",
     databaseURL: "https://comp-firebaseskills-default-rtdb.asia-southeast1.firebasedatabase.app",
@@ -27,7 +27,7 @@ const firebaseConfig = {
     storageBucket: "comp-firebaseskills.firebasestorage.app",
     messagingSenderId: "634491601796",
     appId: "1:634491601796:web:1c48be8af741f25bd353d1"
-  };
+};
 
 console.log('%c fb_io.mjs initialised',
             'color: blue; background-color: white;');
@@ -45,18 +45,18 @@ import { getDatabase } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-
 // EXPORT FUNCTIONS
 // List all the functions called by code or html outside of this module
 /**************************************************************/
-export {fb_initialise};
+export {fb_initialise, ATTACK_CONFIG, firebaseConfig};
 
 /**************************************************************/
 // function fb_initialise()
 // Written by Joshua Kessell-Haak, Term 1 2025
 // Initialises the database
 /**************************************************************/
-function fb_initialise() {
+function fb_initialise(config) {
     console.log('%c fb_initialise(): ', 
                 'color: ' + COL_C + '; background-color: ' + COL_B + ';');
     // Initialize Firebase
-    const FB_GAMEAPP = initializeApp(firebaseConfig);
+    const FB_GAMEAPP = initializeApp(config);
     //const FB_ANALYTICS = getAnalytics(FB_GAMEAPP);
     const FB_DATABASE = getDatabase(FB_GAMEAPP);
     console.log(FB_GAMEAPP) //DIAG
