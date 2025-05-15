@@ -45,7 +45,7 @@ import { getDatabase } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-
 // EXPORT FUNCTIONS
 // List all the functions called by code or html outside of this module
 /**************************************************************/
-export {fb_initialise, ATTACK_CONFIG, firebaseConfig};
+export {fb_initialise, unlockHavock, ATTACK_CONFIG, firebaseConfig};
 
 /**************************************************************/
 // function fb_initialise()
@@ -68,9 +68,15 @@ function fb_initialise(config) {
     for(let i=0;i<allButtons.length;i++) {
       allButtons[i].removeAttribute("disabled")
     }
+    document.getElementById("fb_HAVOCK").setAttribute("disabled","true")
     document.getElementById("fb_initButton").innerHTML= "Initialised";
     document.getElementById("fb_initButton").setAttribute("disabled","true")
 };
+
+function unlockHavock() {
+  document.getElementById("fb_HAVOCK").removeAttribute("disabled");
+  document.getElementById("fb_HAVOCK").innerHTML = "<strong>WREAK HAVOCK</strong>"
+}
 
 /**************************************************************/
 // END OF CODE

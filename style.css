@@ -54,6 +54,41 @@ body {
     background-color: #9dccff;
     border-bottom-color: rgb(95, 159, 226);
   }
+
+  #fb_HAVOCK {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 5px;
+    border-bottom-style: solid;
+    border-bottom-color: #b30000;
+    border-radius: 5px;
+    background-color: #ff0000;
+    color: #fff;
+    transition: all 0.3s;
+    width: 220px; /* Set a fixed width */
+    text-align: center;
+  }
+
+  #fb_HAVOCK:hover {
+    background-color: #b30000;
+    border-bottom-color: #6d0000;
+  }
+
+  #fb_HAVOCK:active {
+    background-color: #b30000;
+    border-bottom: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #6d0000;
+  }
+
+  #fb_HAVOCK:disabled {
+    background-color: #616161;
+    border-bottom-color: rgb(54, 54, 54);
+  }
   
   /*-----------------------------------------------------------*
     Firebase status div styling

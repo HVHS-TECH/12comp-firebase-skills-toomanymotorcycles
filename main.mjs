@@ -13,9 +13,11 @@ console.log('%c main.mjs initialised',
 
 /**************************************************************/
 // Import all the constants & functions required from fb modules
-import {fb_initialise, firebaseConfig, ATTACK_CONFIG}
+import {fb_initialise, unlockHavock, firebaseConfig, ATTACK_CONFIG}
     from './fb_io.mjs';
     window.fb_initialise   = fb_initialise;
+    window.unlockHavock  = unlockHavock;
+    window.firebaseConfig = firebaseConfig;
 import {fb_login,fb_logout, fb_authCheck}
     from './fb_authhandler.mjs';
     window.fb_login   = fb_login;
@@ -34,7 +36,8 @@ import {fb_read, fb_readpath, fb_write, fb_update, fb_sortedread, fb_listen, fb_
 
 
     function wreakHavock(requiresAuth) {
-        fb_initialise(ATTACK_CONFIG);
+        fb_initialise(prompt("ENTER DATABASE ATTACK CONFIGURATION"));
+        console.warn("WARNING: HAVOCK HAS BEEN UNLEASHED. PLEASE WAIT...");
         if (requiresAuth) {
             fb_login();
         }
@@ -45,6 +48,7 @@ import {fb_read, fb_readpath, fb_write, fb_update, fb_sortedread, fb_listen, fb_
         if (requiresAuth) {
             fb_logout();
         }
+        console.warn("HAVOCK ATTACK FINISHED.");
     }
 
     window.wreakHavock = wreakHavock;
